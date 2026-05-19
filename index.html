@@ -14,8 +14,6 @@
     --white: #FAFAFA;
     --pure-white: #FFFFFF;
     --pure-black: #000000;
-
-    /* DARK (default) */
     --bg: #050505;
     --fg: #FAFAFA;
     --muted: #6B6B6B;
@@ -39,7 +37,6 @@
     --highlight-fg: #D63A00;
     --noise-op: 0.02;
   }
-
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body {
@@ -56,7 +53,6 @@
     opacity: var(--noise-op);
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
-  /* Mouse-tracking gradient — follows cursor across the page */
   body::after {
     content:""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%),
@@ -71,7 +67,6 @@
       rgba(80, 120, 255, 0.04) 35%,
       transparent 65%);
   }
-  /* SPECTRA — soft drifting orbs (pre-blurred via radial gradient, no filter:blur) */
   .spectra { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   .spectra .orb { position: absolute; border-radius: 50%; opacity: .55; }
   [data-theme="dark"] .spectra .orb { opacity: .35; }
@@ -81,18 +76,11 @@
   @keyframes drift1 { to { transform: translate(-60px, 50px); } }
   @keyframes drift2 { to { transform: translate(50px, -30px); } }
   @keyframes drift3 { to { transform: translate(60px, 30px); } }
-
-  /* MOUSE-REACTIVE NAME — letters lift toward cursor */
   .mr-letter { display: inline-block; transition: transform .25s cubic-bezier(.16,1,.3,1), color .25s; will-change: transform; }
   .hero-title:hover .mr-letter { color: var(--fg); }
-
-
-
   .display { font-family:'Archivo Black', system-ui, sans-serif; text-transform: uppercase; letter-spacing: -0.04em; line-height: 0.88; }
   .mono    { font-family:'JetBrains Mono', monospace; }
   .grotesk { font-family:'Space Grotesk', system-ui, sans-serif; }
-
-  /* HIGHLIGHT — orange swipe behind keywords */
   .hl {
     position: relative; display: inline-block;
     padding: 0 4px; color: var(--highlight-fg); font-weight: 600;
@@ -101,11 +89,8 @@
     transition: background-size .8s cubic-bezier(.16,1,.3,1);
   }
   .hl.in { background-size: 100% 100%; }
-
   .page { padding-left: 0; min-height: 100vh; position: relative; z-index: 2; padding-top: 80px; }
   .container { padding: 0 56px; max-width: 1280px; }
-
-  /* ───────────── TOP NAV (liquid glass pill, expands on click) ───────────── */
   .topnav {
     position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
     z-index: 50; display: flex; align-items: center; gap: 10px;
@@ -136,7 +121,6 @@
     background: linear-gradient(180deg, rgba(255,255,255,0.10), transparent 50%);
     pointer-events: none;
   }
-
   .nav-logo {
     font-family:'JetBrains Mono'; font-weight: 700; font-size: 12px;
     width: 36px; height: 36px; display: flex; align-items: center; justify-content: center;
@@ -145,7 +129,6 @@
     box-shadow: inset 0 1px 1px rgba(255,255,255,0.4), inset 0 -2px 4px rgba(0,0,0,0.2), 0 2px 6px rgba(255,77,0,0.35);
     color: #fff; flex-shrink: 0; z-index: 2;
   }
-
   .nav-status {
     font-family:'JetBrains Mono'; font-size: 10px;
     display: flex; align-items: center; gap: 6px;
@@ -156,7 +139,6 @@
   .nav-status .dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; box-shadow: 0 0 8px var(--orange); animation: pulse 1.6s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
   @media (max-width: 700px){ .nav-status { display: none; } }
-
   .nav-list {
     display: flex; align-items: center; gap: 2px;
     max-width: 0; overflow: hidden;
@@ -178,7 +160,6 @@
   [data-theme="light"] .nav-item:hover { background: rgba(0,0,0,0.05); }
   .nav-item.is-active { color: var(--orange); }
   .nav-item.is-active .num { opacity: 1; color: var(--orange); }
-
   .nav-tools { display: flex; align-items: center; gap: 8px; flex-shrink: 0; z-index: 2; }
   .menu-btn {
     width: 36px; height: 36px; border-radius: 50%;
@@ -192,8 +173,6 @@
   [data-theme="light"] .menu-btn:hover { background: rgba(0,0,0,0.05); }
   .menu-btn svg { width: 16px; height: 16px; transition: transform .35s; }
   .topnav.open .menu-btn svg { transform: rotate(90deg); }
-
-  /* Hamburger bars inside the menu button */
   .menu-bars { position: relative; width: 16px; height: 12px; display: inline-block; }
   .menu-bars i {
     position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor;
@@ -205,18 +184,13 @@
   .menu-btn[aria-expanded="true"] .menu-bars i:nth-child(1){ top: 50%; transform: translateY(-50%) rotate(45deg); }
   .menu-btn[aria-expanded="true"] .menu-bars i:nth-child(2){ opacity: 0; }
   .menu-btn[aria-expanded="true"] .menu-bars i:nth-child(3){ bottom: 50%; transform: translateY(50%) rotate(-45deg); }
-
-  /* ──── ORBIT CIRCLE MENU (items radiate from the trigger) ──── */
   .circle-menu {
     position: fixed; z-index: 90; pointer-events: none;
     width: 320px; height: 320px;
-    /* Anchored to the menu button; updated via JS */
     top: 0; left: 0; transform: translate(-50%, -50%);
   }
   .circle-menu.is-open { pointer-events: auto; }
-  .circle-menu__items {
-    position: absolute; inset: 0; pointer-events: none;
-  }
+  .circle-menu__items { position: absolute; inset: 0; pointer-events: none; }
   .cm-orbit {
     position: absolute; top: 50%; left: 50%;
     width: 52px; height: 52px;
@@ -228,33 +202,22 @@
     border: 1px solid rgba(255,255,255,0.10);
     backdrop-filter: blur(14px) saturate(140%);
     -webkit-backdrop-filter: blur(14px) saturate(140%);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.10),
-      0 8px 24px rgba(0,0,0,0.35);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 24px rgba(0,0,0,0.35);
     font-family:'JetBrains Mono'; font-size: 10px; font-weight: 600;
     letter-spacing: .04em; text-transform: uppercase;
     transform: translate(0,0) scale(0.4);
     opacity: 0;
-    transition:
-      transform .55s cubic-bezier(.34,1.56,.64,1),
-      opacity .35s ease;
+    transition: transform .55s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
     pointer-events: auto;
   }
   [data-theme="light"] .cm-orbit {
     background: rgba(255,255,255,0.7);
     border-color: rgba(0,0,0,0.10);
-    box-shadow:
-      inset 0 1px 0 rgba(255,255,255,0.7),
-      0 8px 24px rgba(0,0,0,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 24px rgba(0,0,0,0.10);
   }
-  .circle-menu.is-open .cm-orbit {
-    transform: translate(var(--ox,0), var(--oy,0)) scale(1);
-    opacity: 1;
-  }
+  .circle-menu.is-open .cm-orbit { transform: translate(var(--ox,0), var(--oy,0)) scale(1); opacity: 1; }
   .cm-orbit:hover {
-    background: var(--orange);
-    border-color: var(--orange);
-    color: #fff;
+    background: var(--orange); border-color: var(--orange); color: #fff;
     transform: translate(var(--ox,0), var(--oy,0)) scale(1.12);
     box-shadow: 0 8px 28px rgba(255,77,0,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
   }
@@ -269,20 +232,15 @@
     text-transform: uppercase; letter-spacing: .08em;
   }
   .cm-orbit:hover .cm-orbit-label { opacity: 1; color: var(--orange); }
-
-  /* Stagger entry */
   .circle-menu.is-open .cm-orbit:nth-child(1){ transition-delay: 0s, 0s; }
   .circle-menu.is-open .cm-orbit:nth-child(2){ transition-delay: .04s, .04s; }
   .circle-menu.is-open .cm-orbit:nth-child(3){ transition-delay: .08s, .08s; }
   .circle-menu.is-open .cm-orbit:nth-child(4){ transition-delay: .12s, .12s; }
   .circle-menu.is-open .cm-orbit:nth-child(5){ transition-delay: .16s, .16s; }
   .circle-menu.is-open .cm-orbit:nth-child(6){ transition-delay: .20s, .20s; }
-
-  /* When menu is open, dim the rest of nav for hierarchy */
   body.menu-open .topnav .nav-list,
   body.menu-open .topnav .nav-status,
   body.menu-open .topnav .nav-logo { opacity: 0; pointer-events: none; transition: opacity .25s; }
-
   .theme-toggle {
     width: 40px; height: 22px; border-radius: 999px;
     background: transparent; border: 1.5px solid var(--muted);
@@ -295,12 +253,9 @@
     transition: transform .3s cubic-bezier(.16,1,.3,1);
   }
   [data-theme="light"] .theme-toggle::after { transform: translateX(18px); background: var(--orange); }
-
-  /* ───────────── BANNER (faster) ───────────── */
   .band {
     border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-    overflow: hidden; padding: 14px 0;
-    background: var(--bg);
+    overflow: hidden; padding: 14px 0; background: var(--bg);
   }
   .band-track {
     display: flex; gap: 40px;
@@ -311,61 +266,39 @@
   .band-item {
     font-family:'Space Grotesk'; font-weight: 700; font-size: 22px;
     text-transform: uppercase; letter-spacing: 0.01em;
-    display: flex; align-items: center; gap: 40px;
-    color: var(--fg);
+    display: flex; align-items: center; gap: 40px; color: var(--fg);
   }
   .band-item .dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; }
   @keyframes scrollLeft { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-
-  /* ───────────── HERO ───────────── */
   .hero {
     min-height: 100vh; display: flex; flex-direction: column;
-    justify-content: space-between; padding: 40px 56px;
-    position: relative;
+    justify-content: space-between; padding: 40px 56px; position: relative;
   }
   @media (max-width: 720px){ .hero { padding: 24px; } }
-
   .hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; flex-wrap: wrap; }
-
-  /* CIRCULAR ROTATING BADGE */
-  .circle-badge {
-    position: relative; width: 130px; height: 130px;
-    flex-shrink: 0;
-  }
+  .circle-badge { position: relative; width: 130px; height: 130px; flex-shrink: 0; }
   .circle-badge svg { width: 100%; height: 100%; animation: spinSlow 18s linear infinite; }
   .circle-badge svg text { font-family:'JetBrains Mono'; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; fill: var(--fg); }
-  .circle-badge .center {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    pointer-events: none;
-  }
+  .circle-badge .center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
   .circle-badge .core {
     width: 56px; height: 56px; border-radius: 50%;
     background: linear-gradient(180deg, rgba(255,77,0,0.95), rgba(255,77,0,0.7));
     display: flex; align-items: center; justify-content: center;
     color: #fff; font-family:'Archivo Black'; font-size: 22px;
-    box-shadow:
-      inset 0 1px 1px rgba(255,255,255,0.5),
-      inset 0 -3px 6px rgba(0,0,0,0.25),
-      0 4px 14px rgba(255,77,0,0.45);
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), inset 0 -3px 6px rgba(0,0,0,0.25), 0 4px 14px rgba(255,77,0,0.45);
   }
   @keyframes spinSlow { to { transform: rotate(360deg); } }
-  .circle-badge.scroll-spin svg { animation-play-state: paused; }
   .hero-meta-grid { display: flex; gap: 32px; font-family:'JetBrains Mono'; font-size: 11px; }
   .hero-meta-grid .col span { color: var(--muted); display: block; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 4px; }
   .hero-meta-grid .col strong { font-weight: 500; color: var(--fg); }
-
   .hero-title {
     font-family:'Archivo Black'; text-transform: uppercase;
     font-size: clamp(56px, 11vw, 180px); letter-spacing: -0.05em; line-height: 0.86;
   }
   .hero-title .row { display: block; }
   .hero-title .accent { color: var(--orange); }
-  .hero-tag {
-    font-family:'Inter'; font-size: 18px; line-height: 1.5;
-    max-width: 640px; color: var(--fg); margin-top: 32px;
-  }
+  .hero-tag { font-family:'Inter'; font-size: 18px; line-height: 1.5; max-width: 640px; color: var(--fg); margin-top: 32px; }
   .hero-tag .muted { color: var(--muted); }
-
   .hero-bottom { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
   .pill {
     font-family:'JetBrains Mono'; font-size: 11px; text-transform: uppercase; letter-spacing: .1em;
@@ -375,22 +308,14 @@
   .pill .pill-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; box-shadow: 0 0 8px var(--orange); }
   .pill.with-arrow .arrow { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
   @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(3px) } }
-
-  /* TERMINAL CARD — AI/IDE feel */
   .term-card {
-    background: var(--code-bg);
-    border: 1px solid var(--line); border-radius: 10px;
-    overflow: hidden;
-    font-family:'JetBrains Mono'; font-size: 12px;
-    color: var(--fg);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    max-width: 540px;
-    width: 100%;
+    background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px;
+    overflow: hidden; font-family:'JetBrains Mono'; font-size: 12px;
+    color: var(--fg); box-shadow: 0 8px 32px rgba(0,0,0,0.12); max-width: 540px; width: 100%;
   }
   .term-head {
     display: flex; align-items: center; gap: 8px;
-    padding: 10px 14px; border-bottom: 1px solid var(--code-line);
-    background: var(--bg);
+    padding: 10px 14px; border-bottom: 1px solid var(--code-line); background: var(--bg);
   }
   .term-head .dots { display: flex; gap: 6px; }
   .term-head .dots span { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
@@ -401,12 +326,12 @@
   .term-body .ln { display: flex; gap: 14px; }
   .term-body .ln .nb { color: var(--muted); opacity: .5; min-width: 18px; user-select: none; }
   .term-body .ln .code { white-space: pre-wrap; word-break: break-word; }
-  .tk-key { color: #C586C0; }       /* keyword */
-  .tk-fn  { color: #DCDCAA; }       /* function */
-  .tk-str { color: #CE9178; }       /* string */
-  .tk-com { color: #6A9955; }       /* comment */
-  .tk-var { color: #9CDCFE; }       /* variable */
-  .tk-num { color: #B5CEA8; }       /* number */
+  .tk-key { color: #C586C0; }
+  .tk-fn  { color: #DCDCAA; }
+  .tk-str { color: #CE9178; }
+  .tk-com { color: #6A9955; }
+  .tk-var { color: #9CDCFE; }
+  .tk-num { color: #B5CEA8; }
   [data-theme="light"] .tk-key { color: #AF00DB; }
   [data-theme="light"] .tk-fn  { color: #795E26; }
   [data-theme="light"] .tk-str { color: #A31515; }
@@ -415,8 +340,6 @@
   [data-theme="light"] .tk-num { color: #098658; }
   .caret { display: inline-block; width: 7px; height: 14px; background: var(--orange); vertical-align: -2px; animation: blink 1s infinite; }
   @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
-
-  /* ───────────── SECTIONS ───────────── */
   section { position: relative; }
   .sec-head {
     padding: 96px 56px 32px;
@@ -426,38 +349,29 @@
   .sec-num { font-family:'JetBrains Mono'; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .15em; }
   .sec-title { font-family:'Archivo Black'; font-size: clamp(44px, 8vw, 110px); letter-spacing: -0.04em; line-height: 0.88; text-transform: uppercase; }
   .sec-sub { font-family:'JetBrains Mono'; font-size: 12px; color: var(--muted); max-width: 320px; line-height: 1.5; }
-
-  /* About */
   .about { padding: 24px 56px 64px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
   @media (max-width:900px){ .about { grid-template-columns: 1fr; padding: 16px 24px 48px; gap: 32px; } }
   .about-lead { font-family:'Space Grotesk'; font-weight: 700; font-size: clamp(24px, 3vw, 38px); line-height: 1.25; letter-spacing: -0.02em; }
   .about-lead .lg { color: var(--orange); }
   .about-body { font-family:'Inter'; font-size: 15px; line-height: 1.7; color: var(--fg); margin-top: 24px; max-width: 540px; }
   .about-body p + p { margin-top: 14px; }
-
   .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); }
   .stat { background: var(--bg); padding: 24px; }
   .stat .k { font-family:'JetBrains Mono'; font-size: 10px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); }
   .stat .v { font-family:'Archivo Black'; font-size: clamp(36px, 5vw, 56px); line-height: 1; margin-top: 8px; letter-spacing: -0.03em; }
   .stat .v .u { font-size: .4em; color: var(--muted); margin-left: 4px; }
   .stat .d { font-family:'JetBrains Mono'; font-size: 10px; color: var(--orange); margin-top: 6px; }
-
-  /* ──── PER-SEGMENT CURVE TIMELINE (one curve between consecutive items) ──── */
   .xp-list { padding: 60px 56px 100px; position: relative; }
   @media (max-width:900px){ .xp-list { padding: 24px 16px 80px; } }
   .tl-svg {
-    position: absolute; left: 0; top: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 0; overflow: visible;
-    opacity: .9;
+    position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0; overflow: visible; opacity: .9;
   }
   .tl-svg .tl-base { stroke: var(--fg); stroke-width: 1.2; fill: none; opacity: .25; stroke-linecap: round; }
   .tl-svg .tl-prog { stroke: var(--orange); stroke-width: 1.8; fill: none; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(255,77,0,0.6)); }
   .tl-comet { fill: var(--orange); filter: drop-shadow(0 0 6px rgba(255,77,0,0.9)); }
   .tl-node { fill: var(--orange); }
   .tl-node-ring { fill: none; stroke: var(--orange); stroke-width: 1; opacity: .35; }
-
-  /* Rows alternate sides around the center line */
   .xp-row {
     display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
     padding: 50px 0; align-items: start; cursor: pointer; position: relative;
@@ -471,10 +385,7 @@
   .xp-row:nth-child(even) .xp-side { grid-column: 1; text-align: right; padding-right: 40px; }
   .xp-row:nth-child(odd) .xp-stack  { justify-content: flex-end; }
   .xp-row:nth-child(even) .xp-stack { justify-content: flex-start; }
-
-  /* Hide num + dot column visuals — rely on the centered SVG dots */
   .xp-num, .xp-dot-col, .xp-toggle { display: none; }
-
   @media (max-width:900px){
     .xp-row, .xp-row:nth-child(odd), .xp-row:nth-child(even) {
       grid-template-columns: 1fr; gap: 14px; padding: 28px 0;
@@ -486,23 +397,16 @@
     .xp-row:nth-child(odd) .xp-stack, .xp-row:nth-child(even) .xp-stack { justify-content: flex-start; }
     .tl-svg { display: none; }
   }
-
   .xp-body {
     position: relative; z-index: 2;
-    background: rgba(10,10,10,0.55);
-    backdrop-filter: blur(8px);
+    background: rgba(10,10,10,0.55); backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px;
-    padding: 24px 28px;
-    transition: border-color .25s, transform .25s;
+    border: 1px solid rgba(255,255,255,0.06); border-radius: 16px;
+    padding: 24px 28px; transition: border-color .25s, transform .25s;
   }
-  [data-theme="light"] .xp-body {
-    background: rgba(255,255,255,0.6); border-color: rgba(0,0,0,0.06);
-  }
+  [data-theme="light"] .xp-body { background: rgba(255,255,255,0.6); border-color: rgba(0,0,0,0.06); }
   .xp-row:hover .xp-body { border-color: rgba(255,77,0,0.4); transform: translateY(-2px); }
   .xp-row.open .xp-body { border-color: var(--orange); }
-
   .xp-title-row { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
   .xp-row:nth-child(odd) .xp-title-row { justify-content: flex-end; }
   .xp-title { font-family:'Space Grotesk'; font-weight: 700; font-size: clamp(20px, 2.2vw, 28px); line-height: 1.15; letter-spacing: -0.02em; color: var(--fg); }
@@ -523,23 +427,17 @@
     padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px;
     text-transform: uppercase; letter-spacing: .05em;
   }
-
   .xp-side { padding-top: 12px; font-family:'JetBrains Mono'; font-size: 11px; }
   .xp-side .period { color: var(--orange); display: block; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .12em; font-weight: 700; }
   .xp-side .metric { font-family:'Space Grotesk'; font-weight: 700; font-size: clamp(20px, 2vw, 28px); color: var(--fg); line-height: 1.2; }
   .xp-side .metric .ar { color: var(--orange); }
   .xp-side .metric-label { display: block; font-family:'JetBrains Mono'; font-size: 9px; color: var(--muted); letter-spacing: .12em; margin-top: 6px; text-transform: uppercase; }
-
-  /* (legacy timeline styles removed — see centered timeline above) */
-
-  /* Projects */
   .pj-grid { padding: 24px 56px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width:900px){ .pj-grid { grid-template-columns: 1fr; padding: 16px 24px 64px; } }
   .pj {
     background: var(--bg); border: 1px solid var(--line); border-radius: 10px;
     padding: 28px; display: flex; flex-direction: column; gap: 18px;
-    transition: border-color .3s, transform .3s;
-    position: relative; overflow: hidden;
+    transition: border-color .3s, transform .3s; position: relative; overflow: hidden;
   }
   .pj:hover { border-color: var(--orange); transform: translateY(-4px); }
   .pj-top { display: flex; justify-content: space-between; align-items: center; }
@@ -550,15 +448,10 @@
     border-radius: 999px; color: var(--muted); text-transform: uppercase; letter-spacing: .08em;
   }
   .pj-vis {
-    aspect-ratio: 16/9; border-radius: 8px; overflow: hidden;
-    border: 1px solid var(--line);
-    background: var(--code-bg);
-    position: relative;
+    aspect-ratio: 16/9; border-radius: 8px; overflow: hidden; border: 1px solid var(--line);
+    background: var(--code-bg); position: relative;
   }
-  .pj-vis .term-mini {
-    padding: 14px; font-family:'JetBrains Mono'; font-size: 11px;
-    line-height: 1.7;
-  }
+  .pj-vis .term-mini { padding: 14px; font-family:'JetBrains Mono'; font-size: 11px; line-height: 1.7; }
   .pj-vis .term-mini .ln { display: flex; gap: 10px; }
   .pj-vis .term-mini .ln .nb { color: var(--muted); opacity: .4; min-width: 14px; user-select: none; }
   .pj-vis .sticker {
@@ -580,8 +473,15 @@
   .pj ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .pj li { font-family:'Inter'; font-size: 13px; line-height: 1.6; padding-left: 18px; position: relative; color: var(--fg); }
   .pj li::before { content: "→"; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
-
-  /* Resume */
+  .pj-demo-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 18px; background: var(--orange); color: #fff;
+    font-family:'JetBrains Mono'; font-size: 11px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .08em;
+    border-radius: 6px; text-decoration: none;
+    transition: opacity .2s, transform .2s; align-self: flex-start;
+  }
+  .pj-demo-btn:hover { opacity: .88; transform: translateY(-1px); }
   .resume { padding: 24px 56px 96px; display: grid; grid-template-columns: 320px 1fr; gap: 56px; }
   @media (max-width:900px){ .resume { grid-template-columns: 1fr; padding: 16px 24px 64px; gap: 24px; } }
   .resume-card {
@@ -602,15 +502,12 @@
   .res-stat-card .meta { font-family:'JetBrains Mono'; font-size: 11px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
   .dl-btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
-    margin-top: 20px; padding: 14px 16px;
-    background: var(--orange); color: #fff;
-    font-family:'JetBrains Mono'; font-size: 12px;
-    text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
-    border: none; border-radius: 6px; cursor: pointer;
-    text-decoration: none; transition: opacity .2s;
+    margin-top: 20px; padding: 14px 16px; background: var(--orange); color: #fff;
+    font-family:'JetBrains Mono'; font-size: 12px; text-transform: uppercase;
+    letter-spacing: .08em; font-weight: 700; border: none; border-radius: 6px;
+    cursor: pointer; text-decoration: none; transition: opacity .2s;
   }
   .dl-btn:hover { opacity: .9; }
-
   .res-block { margin-bottom: 32px; }
   .res-block h4 {
     font-family:'JetBrains Mono'; font-size: 11px; text-transform: uppercase;
@@ -626,15 +523,12 @@
   .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .skill-row .k { font-family:'JetBrains Mono'; font-size: 10px; color: var(--orange); text-transform: uppercase; letter-spacing: .1em; }
   .skill-row .v { font-family:'Inter'; font-size: 14px; margin-top: 4px; line-height: 1.5; }
-
-  /* Contact */
   .contact { padding: 96px 56px; }
   .contact-title { font-family:'Archivo Black'; font-size: clamp(56px, 13vw, 200px); letter-spacing: -0.05em; line-height: 0.86; text-transform: uppercase; }
   .contact-row { display: flex; justify-content: space-between; align-items: end; flex-wrap: wrap; gap: 32px; margin-top: 32px; }
   .contact-links { display: flex; flex-direction: column; gap: 6px; }
   .contact-links a {
-    font-family:'Space Grotesk'; font-weight: 700;
-    font-size: clamp(20px, 2.4vw, 32px);
+    font-family:'Space Grotesk'; font-weight: 700; font-size: clamp(20px, 2.4vw, 32px);
     text-transform: uppercase; color: var(--fg); text-decoration: none;
     letter-spacing: -0.02em; line-height: 1.1; padding: 6px 0;
     border-bottom: 1px solid transparent; transition: border-color .25s, color .25s;
@@ -643,7 +537,6 @@
   .contact-links a:hover { color: var(--orange); border-color: var(--orange); }
   .contact-links a .arr { display: inline-block; transition: transform .25s; font-size: .8em; }
   .contact-links a:hover .arr { transform: translate(4px, -4px); }
-
   .footer {
     display: flex; justify-content: space-between; align-items: center;
     padding: 28px 56px; border-top: 1px solid var(--line);
@@ -651,14 +544,11 @@
     text-transform: uppercase; letter-spacing: .1em; flex-wrap: wrap; gap: 12px;
   }
   @media (max-width:720px){ .footer, .contact { padding-left: 24px; padding-right: 24px; } }
-
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
   ::selection { background: var(--orange); color: #fff; }
-
   @media (prefers-reduced-motion: reduce) {
     .band-track, .pill .arrow, .caret { animation: none !important; }
   }
@@ -672,7 +562,6 @@
   <div class="orb o3"></div>
 </div>
 
-<!-- ============ TOP NAV ============ -->
 <nav class="topnav" id="topnav" aria-label="Section navigation">
   <div class="nav-logo">JC</div>
   <div class="nav-status"><span class="dot"></span> Open to 2026</div>
@@ -685,15 +574,13 @@
   </div>
 </nav>
 
-<!-- ============ ORBIT CIRCLE MENU ============ -->
 <div class="circle-menu" id="circleMenu" aria-hidden="true">
   <div class="circle-menu__items" id="circleMenuList"></div>
 </div>
 
-<!-- ============ MAIN ============ -->
 <div class="page">
 
-  <!-- ─── HERO ─── -->
+  <!-- HERO -->
   <section class="hero" id="intro" data-section="00" data-label="Intro">
     <div class="hero-top">
       <div class="hero-meta-grid">
@@ -702,9 +589,7 @@
         <div class="col"><span>Based</span><strong>New York, NY</strong></div>
         <div class="col"><span>Status</span><strong style="color: var(--orange);">● Open to 2026</strong></div>
       </div>
-
     </div>
-
     <div>
       <h1 class="hero-title">
         <span class="row" data-matrix="JASPER">JASPER</span>
@@ -714,14 +599,11 @@
         Software engineer writing <span class="hl" data-hl>well-designed, testable code</span> across the full SDLC. <span class="muted">Python, TypeScript, React, FastAPI. Stony Brook University, B.S. CIS &amp; Applied Math — <span class="hl" data-hl>Magna Cum Laude</span>, GPA 3.72, May 2026.</span>
       </p>
     </div>
-
     <div class="hero-bottom">
       <div style="display:flex; gap: 12px; flex-wrap: wrap;">
         <span class="pill"><span class="pill-dot"></span>OPEN TO SWE ROLES · 2026</span>
         <span class="pill with-arrow">SCROLL <span class="arrow">↓</span></span>
       </div>
-
-      <!-- Terminal card -->
       <div class="term-card" aria-hidden="true">
         <div class="term-head">
           <div class="dots"><span></span><span></span><span></span></div>
@@ -742,7 +624,7 @@
     </div>
   </section>
 
-  <!-- ─── BAND 1 ─── -->
+  <!-- BAND 1 -->
   <div class="band" aria-hidden="true">
     <div class="band-track">
       <span class="band-item">SOFTWARE ENGINEER<span class="dot"></span></span>
@@ -758,7 +640,7 @@
     </div>
   </div>
 
-  <!-- ─── ABOUT ─── -->
+  <!-- ABOUT -->
   <section id="about" data-section="01" data-label="About">
     <header class="sec-head">
       <span class="sec-num">§ 01 / ABOUT</span>
@@ -789,7 +671,6 @@
           </p>
         </div>
       </div>
-
       <div class="stat-grid">
         <div class="stat">
           <div class="k">GPA</div>
@@ -815,7 +696,7 @@
     </div>
   </section>
 
-  <!-- ─── EXPERIENCE ─── -->
+  <!-- EXPERIENCE -->
   <section id="experience" data-section="02" data-label="Experience">
     <header class="sec-head">
       <span class="sec-num">§ 02 / EXPERIENCE</span>
@@ -828,7 +709,6 @@
         <path class="tl-prog" id="tlProg" d="" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"></path>
         <circle class="tl-comet" id="tlComet" r="5" cx="0" cy="0" style="opacity:0"></circle>
       </svg>
-
       <article class="xp-row" data-open="false">
         <div class="xp-num">01</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -851,7 +731,6 @@
         </div>
         <div class="xp-toggle">+</div>
       </article>
-
       <article class="xp-row" data-open="false">
         <div class="xp-num">02</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -874,7 +753,6 @@
         </div>
         <div class="xp-toggle">+</div>
       </article>
-
       <article class="xp-row" data-open="false">
         <div class="xp-num">03</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -897,7 +775,6 @@
         </div>
         <div class="xp-toggle">+</div>
       </article>
-
       <article class="xp-row" data-open="false">
         <div class="xp-num">04</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -919,11 +796,10 @@
         </div>
         <div class="xp-toggle">+</div>
       </article>
-
     </div>
   </section>
 
-  <!-- ─── BAND 2 ─── -->
+  <!-- BAND 2 -->
   <div class="band" aria-hidden="true">
     <div class="band-track">
       <span class="band-item">PYTHON<span class="dot"></span></span>
@@ -936,16 +812,13 @@
       <span class="band-item">CI/CD<span class="dot"></span></span>
       <span class="band-item">PYTHON<span class="dot"></span></span>
       <span class="band-item">TYPESCRIPT<span class="dot"></span></span>
-      <span class="band-item">REACT<span class="dot"></span></span>
       <span class="band-item">FASTAPI<span class="dot"></span></span>
-      <span class="band-item">POSTGRESQL<span class="dot"></span></span>
-      <span class="band-item">REDIS<span class="dot"></span></span>
       <span class="band-item">DOCKER<span class="dot"></span></span>
       <span class="band-item">CI/CD<span class="dot"></span></span>
     </div>
   </div>
 
-  <!-- ─── PROJECTS ─── -->
+  <!-- PROJECTS -->
   <section id="projects" data-section="03" data-label="Projects">
     <header class="sec-head">
       <span class="sec-num">§ 03 / PROJECTS</span>
@@ -954,6 +827,7 @@
     </header>
     <div class="pj-grid">
 
+      <!-- PROJECT 1: ContextCrash — UNCHANGED -->
       <article class="pj">
         <div class="pj-vis">
           <div class="term-mini">
@@ -983,39 +857,57 @@
         </ul>
       </article>
 
+      <!-- PROJECT 2: CivicRAG — REPLACES LienTrace -->
       <article class="pj">
         <div class="pj-vis">
           <div class="term-mini">
-            <div class="ln"><span class="nb">1</span><span><span class="tk-com">// lien_trace/cache.ts</span></span></div>
-            <div class="ln"><span class="nb">2</span><span><span class="tk-key">await</span> <span class="tk-var">redis</span>.<span class="tk-fn">setex</span>(</span></div>
-            <div class="ln"><span class="nb">3</span><span>  <span class="tk-var">key</span>, <span class="tk-num">300</span>, <span class="tk-fn">JSON</span>.<span class="tk-fn">stringify</span>(<span class="tk-var">data</span>)</span></div>
-            <div class="ln"><span class="nb">4</span><span>);</span></div>
-            <div class="ln"><span class="nb">5</span><span><span class="tk-com"># concurrent · retry · safe</span></span></div>
+            <div class="ln"><span class="nb">1</span><span><span class="tk-com">// civicrag/retrieval.py</span></span></div>
+            <div class="ln"><span class="nb">2</span><span><span class="tk-key">def</span> <span class="tk-fn">retrieve</span>(<span class="tk-var">query</span>):</span></div>
+            <div class="ln"><span class="nb">3</span><span>  <span class="tk-var">bm25</span> <span class="tk-key">=</span> <span class="tk-fn">keyword_search</span>(<span class="tk-var">query</span>)</span></div>
+            <div class="ln"><span class="nb">4</span><span>  <span class="tk-var">vec</span> <span class="tk-key">=</span> <span class="tk-fn">vector_search</span>(<span class="tk-var">query</span>)</span></div>
+            <div class="ln"><span class="nb">5</span><span>  <span class="tk-key">return</span> <span class="tk-fn">rrf_fuse</span>(<span class="tk-var">bm25</span>, <span class="tk-var">vec</span>)</span></div>
           </div>
-          <span class="sticker">PROD</span>
+          <span class="sticker">LIVE</span>
         </div>
         <div class="pj-top">
           <span class="pj-num">P / 02</span>
-          <span class="pj-cat">FULL-STACK · DUAL DB</span>
+          <span class="pj-cat">AI · RAG · EVAL</span>
         </div>
-        <h3 class="pj-title">LienTrace</h3>
-        <p class="pj-tag">Production full-stack application combining a relational PostgreSQL database with a Redis NoSQL cache; robust error handling and retry logic under concurrent load.</p>
+        <h3 class="pj-title">CivicRAG</h3>
+        <p class="pj-tag">Hybrid RAG system over 538 US Congressional bills. BM25 + vector retrieval fused with RRF, cross-encoder reranking, streaming generation, and a continuous self-evaluation layer with loss-bucket diagnostics.</p>
         <div class="pj-meta">
-          <div>RELATIONAL<span class="v">POSTGRESQL</span></div>
-          <div>NOSQL<span class="v">REDIS</span></div>
+          <div>RETRIEVAL<span class="v">HYBRID</span></div>
+          <div>EVAL<span class="v">RAGAS-STYLE</span></div>
         </div>
-        <div class="pj-stack"><span>PYTHON</span><span>TYPESCRIPT</span><span>FASTAPI</span><span>POSTGRESQL</span><span>REDIS</span><span>DOCKER</span></div>
+        <div class="pj-stack"><span>PYTHON</span><span>FASTAPI</span><span>CHROMADB</span><span>BM25</span><span>GROQ</span><span>REACT</span><span>DOCKER</span></div>
         <ul>
-          <li>Designed, developed, and debugged with full unit-test coverage and integration tests.</li>
-          <li>Resolved concurrent state-management failures via systematic root-cause analysis.</li>
-          <li>Retry logic + circuit breakers for external integrations; dockerized deployment.</li>
+          <li>Hybrid BM25 + vector retrieval fused with Reciprocal Rank Fusion — 40% quality gain over pure-vector baseline.</li>
+          <li>Cross-encoder reranker + agent routing (lookup / summarize / compare) with SSE token streaming.</li>
+          <li>Continuous eval pipeline: faithfulness, answer relevancy, context recall — loss-bucket taxonomy surfacing hallucination vs retrieval miss vs latency.</li>
         </ul>
+        <a class="pj-demo-btn" href="https://civic-dvrs4kb19-jasper-s-projects7.vercel.app/" target="_blank" rel="noopener">
+          ↗ LIVE DEMO
+        </a>
       </article>
 
     </div>
   </section>
 
-  <!-- ─── RESUME ─── -->
+  <!-- BAND 3 -->
+  <div class="band" aria-hidden="true">
+    <div class="band-track">
+      <span class="band-item">LET'S BUILD<span class="dot"></span></span>
+      <span class="band-item">LET'S SHIP<span class="dot"></span></span>
+      <span class="band-item">LET'S DEBUG<span class="dot"></span></span>
+      <span class="band-item">LET'S TEST<span class="dot"></span></span>
+      <span class="band-item">LET'S BUILD<span class="dot"></span></span>
+      <span class="band-item">LET'S SHIP<span class="dot"></span></span>
+      <span class="band-item">LET'S DEBUG<span class="dot"></span></span>
+      <span class="band-item">LET'S TEST<span class="dot"></span></span>
+    </div>
+  </div>
+
+  <!-- RESUME -->
   <section id="resume" data-section="04" data-label="Resume">
     <header class="sec-head">
       <span class="sec-num">§ 04 / RESUME</span>
@@ -1026,13 +918,11 @@
       <aside class="resume-card">
         <div class="name">JASPER<br/>CHAWLA</div>
         <div class="role">SOFTWARE ENGINEER</div>
-
         <div class="res-stat-card">
           <div class="k">EDUCATION</div>
           <div class="v">Stony Brook University<span class="badge">M.C.L.</span></div>
           <div class="meta">B.S. Computer Information Systems<br/>B.S. Applied Math &amp; Statistics<br/>GPA 3.72 · May 2026</div>
         </div>
-
         <div class="res-stat-card">
           <div class="k">CONTACT</div>
           <div class="meta" style="margin-top: 4px;">
@@ -1041,10 +931,8 @@
             New York, NY
           </div>
         </div>
-
         <a class="dl-btn" href="#" onclick="alert('Hook this up to your real PDF.'); return false;">↓ DOWNLOAD PDF</a>
       </aside>
-
       <div>
         <div class="res-block">
           <h4>SUMMARY</h4>
@@ -1056,7 +944,6 @@
             relational and NoSQL databases, with a genuine curiosity for technical research and continuous learning.
           </p>
         </div>
-
         <div class="resume-cols">
           <div class="res-block">
             <h4>EXPERIENCE</h4>
@@ -1077,7 +964,6 @@
               <span class="meta">Jul — Sep 2025 · Ludhiana CT</span>
             </div>
           </div>
-
           <div class="res-block">
             <h4>LEADERSHIP</h4>
             <div class="res-item">
@@ -1094,7 +980,6 @@
             </div>
           </div>
         </div>
-
         <div class="res-block" style="margin-top: 12px;">
           <h4>SKILLS</h4>
           <div class="skills-grid">
@@ -1120,21 +1005,7 @@
     </div>
   </section>
 
-  <!-- ─── BAND 3 ─── -->
-  <div class="band" aria-hidden="true">
-    <div class="band-track">
-      <span class="band-item">LET'S BUILD<span class="dot"></span></span>
-      <span class="band-item">LET'S SHIP<span class="dot"></span></span>
-      <span class="band-item">LET'S DEBUG<span class="dot"></span></span>
-      <span class="band-item">LET'S TEST<span class="dot"></span></span>
-      <span class="band-item">LET'S BUILD<span class="dot"></span></span>
-      <span class="band-item">LET'S SHIP<span class="dot"></span></span>
-      <span class="band-item">LET'S DEBUG<span class="dot"></span></span>
-      <span class="band-item">LET'S TEST<span class="dot"></span></span>
-    </div>
-  </div>
-
-  <!-- ─── CONTACT ─── -->
+  <!-- CONTACT -->
   <section id="contact" class="contact" data-section="05" data-label="Contact">
     <span class="sec-num" style="font-family:'JetBrains Mono'; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .15em;">§ 05 / CONTACT</span>
     <h2 class="contact-title" data-matrix="LET'S TALK." style="margin-top: 14px;">LET'S TALK<span style="color: var(--orange);">.</span></h2>
@@ -1165,13 +1036,9 @@
 </div>
 
 <script>
-/* ============================================================
-   0. MATRIX / BINARY SCRAMBLE — runs on view + on hover
-   ============================================================ */
 (function() {
   const GLYPHS = '01';
   const elements = document.querySelectorAll('[data-matrix]');
-
   function scramble(el, finalText, duration = 900) {
     if (!el.dataset.originalHtml) el.dataset.originalHtml = el.innerHTML;
     const chars = finalText.split('');
@@ -1179,83 +1046,60 @@
     const start = performance.now();
     const order = [...Array(len).keys()].sort(() => Math.random() - 0.5);
     const lockTimes = order.map((_, i) => (i / len) * duration * 0.7 + Math.random() * 100);
-
     function step(now) {
       const t = now - start;
       let out = '';
       for (let i = 0; i < len; i++) {
         const idxOrder = order.indexOf(i);
-        if (t > lockTimes[idxOrder]) {
-          out += chars[i];
-        } else if (chars[i] === ' ' || chars[i] === "'") {
-          out += chars[i];
-        } else {
-          out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
-        }
+        if (t > lockTimes[idxOrder]) { out += chars[i]; }
+        else if (chars[i] === ' ' || chars[i] === "'") { out += chars[i]; }
+        else { out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)]; }
       }
       el.textContent = out;
-      if (t < duration) {
-        requestAnimationFrame(step);
-      } else {
-        el.innerHTML = el.dataset.originalHtml;
-      }
+      if (t < duration) { requestAnimationFrame(step); }
+      else { el.innerHTML = el.dataset.originalHtml; }
     }
     requestAnimationFrame(step);
   }
-
   elements.forEach(el => {
     el.dataset.originalHtml = el.innerHTML;
     const finalText = el.dataset.matrix;
     let played = false;
     const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (en.isIntersecting && !played) {
-          played = true;
-          scramble(el, finalText, 900);
-        }
-      });
+      entries.forEach(en => { if (en.isIntersecting && !played) { played = true; scramble(el, finalText, 900); } });
     }, { threshold: 0.4 });
     io.observe(el);
     el.addEventListener('mouseenter', () => scramble(el, finalText, 600));
   });
 })();
 
-/* ============================================================
-   1. TOP NAV — fixed list, click to scroll, menu toggle
-   ============================================================ */
 (function() {
   const SECTIONS = [
-    { id: 'intro',      num: '00', label: 'Intro' },
-    { id: 'about',      num: '01', label: 'About' },
+    { id: 'intro', num: '00', label: 'Intro' },
+    { id: 'about', num: '01', label: 'About' },
     { id: 'experience', num: '02', label: 'Work' },
-    { id: 'projects',   num: '03', label: 'Projects' },
-    { id: 'resume',     num: '04', label: 'Resume' },
-    { id: 'contact',    num: '05', label: 'Contact' }
+    { id: 'projects', num: '03', label: 'Projects' },
+    { id: 'resume', num: '04', label: 'Resume' },
+    { id: 'contact', num: '05', label: 'Contact' }
   ];
   const list = document.getElementById('navList');
   const nav = document.getElementById('topnav');
   const menuBtn = document.getElementById('menuBtn');
   const circleMenu = document.getElementById('circleMenu');
   const circleMenuList = document.getElementById('circleMenuList');
-
   list.innerHTML = SECTIONS.map(s => `
     <a class="nav-item" href="#${s.id}" data-target="${s.id}">
       <span class="num">${s.num}</span>
       <span class="lbl">${s.label}</span>
     </a>
   `).join('');
-
-  // Build the orbit menu items
-  const META = {
-    intro:'home', about:'me', experience:'work', projects:'builds', resume:'cv', contact:'mail'
-  };
   const ICONS = {
-    intro:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 12 12 4l9 8"/><path d="M5 10v10h14V10"/></svg>',
-    about:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>',
+    intro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 12 12 4l9 8"/><path d="M5 10v10h14V10"/></svg>',
+    about: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>',
     experience: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
-    projects:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m8 4 4 16M16 4l-4 16"/><path d="M3 8h18M3 16h18"/></svg>',
-    resume:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6"/></svg>',
-    contact:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'
+    projects: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m8 4 4 16M16 4l-4 16"/><path d="M3 8h18M3 16h18"/></svg>',
+    resume: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6"/></svg>',
+    contact: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'
   };
   circleMenuList.innerHTML = SECTIONS.map(s => `
     <a class="cm-orbit" href="#${s.id}" data-target="${s.id}">
@@ -1263,54 +1107,29 @@
       <span class="cm-orbit-label">${s.label}</span>
     </a>
   `).join('');
-
-  // Position items on a circle around the trigger
   const orbitRadius = 110;
   const orbits = circleMenuList.querySelectorAll('.cm-orbit');
   orbits.forEach((el, i) => {
     const theta = (2 * Math.PI * i) / orbits.length - Math.PI / 2;
-    const ox = Math.cos(theta) * orbitRadius;
-    const oy = Math.sin(theta) * orbitRadius;
-    el.style.setProperty('--ox', ox + 'px');
-    el.style.setProperty('--oy', oy + 'px');
+    el.style.setProperty('--ox', Math.cos(theta) * orbitRadius + 'px');
+    el.style.setProperty('--oy', Math.sin(theta) * orbitRadius + 'px');
   });
-
   list.addEventListener('click', e => {
     const a = e.target.closest('a[data-target]');
     if (!a) return;
     e.preventDefault();
     const el = document.getElementById(a.dataset.target);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (window.innerWidth < 900) {
-      nav.classList.remove('open');
-      menuBtn.setAttribute('aria-expanded', 'false');
-    }
+    if (window.innerWidth < 900) { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
   });
-
-  // Position the orbit menu over the trigger button
   function setMenuOrigin() {
     const r = menuBtn.getBoundingClientRect();
     circleMenu.style.left = (r.left + r.width / 2) + 'px';
     circleMenu.style.top  = (r.top  + r.height / 2) + 'px';
   }
-  function openCircleMenu() {
-    setMenuOrigin();
-    circleMenu.classList.add('is-open');
-    circleMenu.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('menu-open');
-    menuBtn.setAttribute('aria-expanded', 'true');
-  }
-  function closeCircleMenu() {
-    circleMenu.classList.remove('is-open');
-    circleMenu.setAttribute('aria-hidden', 'true');
-    document.body.classList.remove('menu-open');
-    menuBtn.setAttribute('aria-expanded', 'false');
-  }
-
-  menuBtn.addEventListener('click', () => {
-    if (circleMenu.classList.contains('is-open')) closeCircleMenu();
-    else openCircleMenu();
-  });
+  function openCircleMenu() { setMenuOrigin(); circleMenu.classList.add('is-open'); circleMenu.setAttribute('aria-hidden', 'false'); document.body.classList.add('menu-open'); menuBtn.setAttribute('aria-expanded', 'true'); }
+  function closeCircleMenu() { circleMenu.classList.remove('is-open'); circleMenu.setAttribute('aria-hidden', 'true'); document.body.classList.remove('menu-open'); menuBtn.setAttribute('aria-expanded', 'false'); }
+  menuBtn.addEventListener('click', () => { if (circleMenu.classList.contains('is-open')) closeCircleMenu(); else openCircleMenu(); });
   circleMenuList.addEventListener('click', e => {
     const a = e.target.closest('a[data-target]');
     if (!a) return;
@@ -1319,51 +1138,28 @@
     closeCircleMenu();
     setTimeout(() => el && el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 380);
   });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && circleMenu.classList.contains('is-open')) closeCircleMenu();
-  });
-  window.addEventListener('resize', () => {
-    if (circleMenu.classList.contains('is-open')) setMenuOrigin();
-  });
-
-  // Open by default on desktop
-  if (window.innerWidth >= 900) {
-    nav.classList.add('open');
-    menuBtn.setAttribute('aria-expanded', 'true');
-  }
-
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && circleMenu.classList.contains('is-open')) closeCircleMenu(); });
+  window.addEventListener('resize', () => { if (circleMenu.classList.contains('is-open')) setMenuOrigin(); });
+  if (window.innerWidth >= 900) { nav.classList.add('open'); menuBtn.setAttribute('aria-expanded', 'true'); }
   const observer = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (en.isIntersecting) {
         const id = en.target.id;
-        document.querySelectorAll('.nav-item').forEach(it => {
-          it.classList.toggle('is-active', it.dataset.target === id);
-        });
+        document.querySelectorAll('.nav-item').forEach(it => { it.classList.toggle('is-active', it.dataset.target === id); });
       }
     });
   }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
   document.querySelectorAll('section[data-section]').forEach(s => observer.observe(s));
 })();
 
-/* ============================================================
-   2. HIGHLIGHT SWIPE — orange swipe behind keywords
-   ============================================================ */
 (function() {
   const items = document.querySelectorAll('[data-hl]');
   const io = new IntersectionObserver(entries => {
-    entries.forEach(en => {
-      if (en.isIntersecting) {
-        en.target.classList.add('in');
-        io.unobserve(en.target);
-      }
-    });
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
   }, { threshold: 0.6 });
   items.forEach(el => io.observe(el));
 })();
 
-/* ============================================================
-   3. THEME TOGGLE
-   ============================================================ */
 (function() {
   const btn = document.getElementById('themeToggle');
   const KEY = 'jc-theme';
@@ -1376,9 +1172,6 @@
   });
 })();
 
-/* ============================================================
-   4. EXPERIENCE ROW EXPAND
-   ============================================================ */
 (function() {
   document.querySelectorAll('.xp-row').forEach(row => {
     row.addEventListener('click', () => {
@@ -1389,9 +1182,6 @@
   });
 })();
 
-/* ============================================================
-   4b. TIMELINE — hand-drawn centered ribbon, scroll-driven progress + comet
-   ============================================================ */
 (function() {
   const list = document.querySelector('.xp-list');
   const svg = document.getElementById('tlSvg');
@@ -1400,47 +1190,22 @@
   const comet = document.getElementById('tlComet');
   const rows = document.querySelectorAll('.xp-row');
   if (!list || !svg || !base || !prog) return;
-
-  // Reveal rows on intersection
   const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('in-view');
-        io.unobserve(e.target);
-      }
-    });
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } });
   }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
   rows.forEach(r => io.observe(r));
-
   let pathLen = 0;
-
-  // Seeded random so the squiggle is consistent each rebuild (looks "drawn")
-  function mulberry32(a) {
-    return function() {
-      a |= 0; a = a + 0x6D2B79F5 | 0;
-      let t = Math.imul(a ^ a >>> 15, 1 | a);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    }
-  }
-
   function buildPath() {
     const lr = list.getBoundingClientRect();
     const W = lr.width, H = lr.height;
     if (H < 100 || W < 100) return;
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     svg.setAttribute('preserveAspectRatio', 'none');
-
-    // Anchor point per row = vertical center of card body, horizontally aligned
-    // to side: odd rows are right-side bodies, even rows are left-side bodies.
-    // Curve goes between the *inner edges* of consecutive cards, alternating side.
     const anchors = [];
-    rows.forEach((row, idx) => {
+    rows.forEach((row) => {
       const body = row.querySelector('.xp-body');
       if (!body) return;
       const br = body.getBoundingClientRect();
-      // Determine which half the body sits in by its actual center, then
-      // anchor at the inner edge (closer to the page centerline).
       const bodyCenter = (br.left + br.right) / 2 - lr.left;
       const onLeft = bodyCenter < lr.width / 2;
       const x = onLeft ? (br.right - lr.left) : (br.left - lr.left);
@@ -1448,24 +1213,15 @@
       anchors.push({ x, y, side: onLeft ? 'L' : 'R' });
     });
     if (anchors.length < 2) return;
-
-    // Build path: one cubic curve PER PAIR of consecutive anchors.
-    // Curve bows outward (toward the gap between left and right columns) so it
-    // arcs from one card across the centerline to the next.
     let d = `M ${anchors[0].x.toFixed(1)} ${anchors[0].y.toFixed(1)}`;
     for (let i = 1; i < anchors.length; i++) {
       const a = anchors[i - 1], b = anchors[i];
-      const midY = (a.y + b.y) / 2;
       const dy = Math.abs(b.y - a.y);
-      // Horizontal control offset — strong, scales with vertical gap
       const off = Math.max(120, Math.min(260, dy * 0.55));
-      // From an L anchor, control1 sweeps RIGHT (positive); from an R anchor, sweeps LEFT.
       const dirA = (a.side === 'L') ? 1 : -1;
       const dirB = (b.side === 'L') ? 1 : -1;
-      const c1x = a.x + dirA * off;
-      const c1y = a.y + dy * 0.15;
-      const c2x = b.x + dirB * off;
-      const c2y = b.y - dy * 0.15;
+      const c1x = a.x + dirA * off, c1y = a.y + dy * 0.15;
+      const c2x = b.x + dirB * off, c2y = b.y - dy * 0.15;
       d += ` C ${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
     }
     base.setAttribute('d', d);
@@ -1473,60 +1229,41 @@
     pathLen = prog.getTotalLength();
     prog.style.strokeDasharray = pathLen;
     prog.style.strokeDashoffset = pathLen;
-
-    // Render anchor nodes (small dots at each card's connection point)
     let nodes = svg.querySelectorAll('.tl-node, .tl-node-ring');
     nodes.forEach(n => n.remove());
     anchors.forEach(a => {
       const ring = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      ring.setAttribute('class', 'tl-node-ring');
-      ring.setAttribute('cx', a.x); ring.setAttribute('cy', a.y); ring.setAttribute('r', 8);
+      ring.setAttribute('class', 'tl-node-ring'); ring.setAttribute('cx', a.x); ring.setAttribute('cy', a.y); ring.setAttribute('r', 8);
       svg.appendChild(ring);
       const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      dot.setAttribute('class', 'tl-node');
-      dot.setAttribute('cx', a.x); dot.setAttribute('cy', a.y); dot.setAttribute('r', 3);
+      dot.setAttribute('class', 'tl-node'); dot.setAttribute('cx', a.x); dot.setAttribute('cy', a.y); dot.setAttribute('r', 3);
       svg.appendChild(dot);
     });
   }
-
   function update() {
     if (!pathLen) return;
     const r = list.getBoundingClientRect();
     const vh = window.innerHeight;
-    const start = vh * 0.65;
-    const end = vh * 0.35;
+    const start = vh * 0.65, end = vh * 0.35;
     const total = r.height;
     const passed = Math.max(0, start - r.top);
     const visibleSpan = total + start - end;
     const t = Math.max(0, Math.min(1, passed / visibleSpan));
-
     const drawn = pathLen * t;
     prog.style.strokeDashoffset = pathLen - drawn;
-
     if (t > 0.005 && t < 0.995) {
       const pt = prog.getPointAtLength(drawn);
-      comet.setAttribute('cx', pt.x);
-      comet.setAttribute('cy', pt.y);
-      comet.style.opacity = 1;
-    } else {
-      comet.style.opacity = 0;
-    }
+      comet.setAttribute('cx', pt.x); comet.setAttribute('cy', pt.y); comet.style.opacity = 1;
+    } else { comet.style.opacity = 0; }
   }
-
   function rebuild() { buildPath(); update(); }
-
-  // initial + observers
   window.addEventListener('load', rebuild);
   setTimeout(rebuild, 200);
   window.addEventListener('resize', rebuild);
-  // rebuild when rows expand (height changes)
   rows.forEach(row => row.addEventListener('click', () => setTimeout(rebuild, 450)));
   window.addEventListener('scroll', update, { passive: true });
 })();
 
-/* ============================================================
-   4c. MOUSE-TRACKING GRADIENT
-   ============================================================ */
 (function() {
   let raf = 0, mx = window.innerWidth/2, my = window.innerHeight/2;
   document.addEventListener('mousemove', e => {
@@ -1539,11 +1276,7 @@
   });
 })();
 
-/* ============================================================
-   6. MOUSE-REACTIVE NAME — wrap letters in hero title only, react to cursor (throttled)
-   ============================================================ */
 (function() {
-  // Only wrap the hero title — that's the only one we want reacting
   const heroRows = document.querySelectorAll('.hero-title [data-matrix]');
   setTimeout(() => {
     heroRows.forEach(wrapper => {
@@ -1551,14 +1284,8 @@
         if (node.nodeType === 3) {
           const frag = document.createDocumentFragment();
           [...node.textContent].forEach(ch => {
-            if (ch === ' ') {
-              frag.appendChild(document.createTextNode(' '));
-            } else {
-              const s = document.createElement('span');
-              s.className = 'mr-letter';
-              s.textContent = ch;
-              frag.appendChild(s);
-            }
+            if (ch === ' ') { frag.appendChild(document.createTextNode(' ')); }
+            else { const s = document.createElement('span'); s.className = 'mr-letter'; s.textContent = ch; frag.appendChild(s); }
           });
           node.parentNode.replaceChild(frag, node);
         } else if (node.nodeType === 1 && !node.classList.contains('mr-letter')) {
@@ -1568,10 +1295,7 @@
       [...wrapper.childNodes].forEach(wrapNode);
     });
   }, 1100);
-
-  // Throttle via rAF; cache letter positions; only update on scroll/resize
-  let cached = [];
-  let mx = 0, my = 0, raf = 0, dirty = true;
+  let cached = [], mx = 0, my = 0, raf = 0, dirty = true;
   function recache() {
     cached = [...document.querySelectorAll('.hero-title .mr-letter')].map(el => {
       const r = el.getBoundingClientRect();
@@ -1581,19 +1305,14 @@
   }
   window.addEventListener('scroll', () => { dirty = true; }, { passive: true });
   window.addEventListener('resize', () => { dirty = true; });
-
   function tick() {
     raf = 0;
     if (dirty) recache();
     cached.forEach(({el, cx, cy}) => {
       const dx = mx - cx, dy = my - cy;
       const d = Math.hypot(dx, dy);
-      if (d < 180 && d > 0.5) {
-        const f = (1 - d/180) * 14;
-        el.style.transform = `translate(${(-dx/d)*f}px, ${(-dy/d)*f}px)`;
-      } else {
-        el.style.transform = '';
-      }
+      if (d < 180 && d > 0.5) { const f = (1 - d/180) * 14; el.style.transform = `translate(${(-dx/d)*f}px, ${(-dy/d)*f}px)`; }
+      else { el.style.transform = ''; }
     });
   }
   document.addEventListener('mousemove', (e) => {
@@ -1602,6 +1321,5 @@
   });
 })();
 </script>
-
 </body>
 </html>
