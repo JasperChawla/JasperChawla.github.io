@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
 <style>
+  /* -- color tokens -- */
   :root {
     --orange: #FF4D00;
     --black: #0A0A0A;
@@ -48,11 +49,13 @@
     overflow-x: hidden;
     transition: background-color .35s ease, color .35s ease;
   }
+  /* film grain overlay */
   body::before {
     content:""; position:fixed; inset:0; pointer-events:none; z-index:1;
     opacity: var(--noise-op);
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
+  /* ambient cursor light */
   body::after {
     content:""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 50%),
@@ -67,6 +70,7 @@
       rgba(80, 120, 255, 0.04) 35%,
       transparent 65%);
   }
+  /* floating bg orbs */
   .spectra { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
   .spectra .orb { position: absolute; border-radius: 50%; opacity: .55; }
   [data-theme="dark"] .spectra .orb { opacity: .35; }
@@ -91,6 +95,7 @@
   .hl.in { background-size: 100% 100%; }
   .page { padding-left: 0; min-height: 100vh; position: relative; z-index: 2; padding-top: 80px; }
   .container { padding: 0 56px; max-width: 1280px; }
+  /* floating pill nav */
   .topnav {
     position: fixed; top: 14px; left: 50%; transform: translateX(-50%);
     z-index: 50; display: flex; align-items: center; gap: 10px;
@@ -141,11 +146,7 @@
   @media (max-width: 700px){ .nav-status { display: none; } }
   .nav-list {
     display: flex; align-items: center; gap: 2px;
-    max-width: 0; overflow: hidden;
-    transition: max-width .5s cubic-bezier(.16,1,.3,1), opacity .3s;
-    opacity: 0;
   }
-  .topnav.open .nav-list { max-width: 700px; opacity: 1; }
   .nav-item {
     display: flex; align-items: center; gap: 8px;
     padding: 8px 14px; border-radius: 999px;
@@ -161,86 +162,24 @@
   .nav-item.is-active { color: var(--orange); }
   .nav-item.is-active .num { opacity: 1; color: var(--orange); }
   .nav-tools { display: flex; align-items: center; gap: 8px; flex-shrink: 0; z-index: 2; }
-  .menu-btn {
-    width: 36px; height: 36px; border-radius: 50%;
-    background: transparent; border: 1px solid rgba(255,255,255,0.12);
-    color: var(--fg); cursor: pointer; padding: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: background .2s, transform .25s;
-  }
-  [data-theme="light"] .menu-btn { border-color: rgba(0,0,0,0.12); }
-  .menu-btn:hover { background: rgba(255,255,255,0.08); }
-  [data-theme="light"] .menu-btn:hover { background: rgba(0,0,0,0.05); }
-  .menu-btn svg { width: 16px; height: 16px; transition: transform .35s; }
-  .topnav.open .menu-btn svg { transform: rotate(90deg); }
-  .menu-bars { position: relative; width: 16px; height: 12px; display: inline-block; }
-  .menu-bars i {
-    position: absolute; left: 0; right: 0; height: 1.5px; background: currentColor;
-    border-radius: 2px; transition: transform .4s cubic-bezier(.7,0,.3,1), opacity .25s;
-  }
-  .menu-bars i:nth-child(1){ top: 0; }
-  .menu-bars i:nth-child(2){ top: 50%; transform: translateY(-50%); }
-  .menu-bars i:nth-child(3){ bottom: 0; }
-  .menu-btn[aria-expanded="true"] .menu-bars i:nth-child(1){ top: 50%; transform: translateY(-50%) rotate(45deg); }
-  .menu-btn[aria-expanded="true"] .menu-bars i:nth-child(2){ opacity: 0; }
-  .menu-btn[aria-expanded="true"] .menu-bars i:nth-child(3){ bottom: 50%; transform: translateY(50%) rotate(-45deg); }
-  .circle-menu {
-    position: fixed; z-index: 90; pointer-events: none;
-    width: 320px; height: 320px;
-    top: 0; left: 0; transform: translate(-50%, -50%);
-  }
-  .circle-menu.is-open { pointer-events: auto; }
-  .circle-menu__items { position: absolute; inset: 0; pointer-events: none; }
-  .cm-orbit {
-    position: absolute; top: 50%; left: 50%;
-    width: 52px; height: 52px;
-    margin: -26px 0 0 -26px;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: var(--fg); text-decoration: none;
-    background: rgba(20,20,22,0.6);
-    border: 1px solid rgba(255,255,255,0.10);
-    backdrop-filter: blur(14px) saturate(140%);
-    -webkit-backdrop-filter: blur(14px) saturate(140%);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10), 0 8px 24px rgba(0,0,0,0.35);
-    font-family:'JetBrains Mono'; font-size: 10px; font-weight: 600;
-    letter-spacing: .04em; text-transform: uppercase;
-    transform: translate(0,0) scale(0.4);
-    opacity: 0;
-    transition: transform .55s cubic-bezier(.34,1.56,.64,1), opacity .35s ease;
-    pointer-events: auto;
-  }
-  [data-theme="light"] .cm-orbit {
-    background: rgba(255,255,255,0.7);
-    border-color: rgba(0,0,0,0.10);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 8px 24px rgba(0,0,0,0.10);
-  }
-  .circle-menu.is-open .cm-orbit { transform: translate(var(--ox,0), var(--oy,0)) scale(1); opacity: 1; }
-  .cm-orbit:hover {
-    background: var(--orange); border-color: var(--orange); color: #fff;
-    transform: translate(var(--ox,0), var(--oy,0)) scale(1.12);
-    box-shadow: 0 8px 28px rgba(255,77,0,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
-  }
-  .cm-orbit .cm-orbit-num { color: var(--orange); font-size: 9px; }
-  .cm-orbit:hover .cm-orbit-num { color: #fff; }
-  .cm-orbit .cm-orbit-label {
-    position: absolute; top: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-    font-family:'Space Grotesk'; font-weight: 700; font-size: 11px;
-    color: var(--fg); white-space: nowrap;
-    opacity: 0; transition: opacity .15s ease;
+  /* glow border that tracks cursor on project cards */
+  .pj { --glow-x: 0.5; --glow-y: 0.5; --glow-active: 0; }
+  .pj::before {
+    content: ""; position: absolute; inset: -1px; border-radius: inherit; z-index: 1;
     pointer-events: none;
-    text-transform: uppercase; letter-spacing: .08em;
+    background: conic-gradient(
+      from calc(var(--glow-angle, 0) * 1deg) at calc(var(--glow-x) * 100%) calc(var(--glow-y) * 100%),
+      #dd7bbb, #d79f1e, #5a922c, #4c7894, #dd7bbb
+    );
+    opacity: calc(var(--glow-active) * 0.85);
+    transition: opacity 0.35s ease;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    padding: 2px;
   }
-  .cm-orbit:hover .cm-orbit-label { opacity: 1; color: var(--orange); }
-  .circle-menu.is-open .cm-orbit:nth-child(1){ transition-delay: 0s, 0s; }
-  .circle-menu.is-open .cm-orbit:nth-child(2){ transition-delay: .04s, .04s; }
-  .circle-menu.is-open .cm-orbit:nth-child(3){ transition-delay: .08s, .08s; }
-  .circle-menu.is-open .cm-orbit:nth-child(4){ transition-delay: .12s, .12s; }
-  .circle-menu.is-open .cm-orbit:nth-child(5){ transition-delay: .16s, .16s; }
-  .circle-menu.is-open .cm-orbit:nth-child(6){ transition-delay: .20s, .20s; }
-  body.menu-open .topnav .nav-list,
-  body.menu-open .topnav .nav-status,
-  body.menu-open .topnav .nav-logo { opacity: 0; pointer-events: none; transition: opacity .25s; }
+  .pj:hover::before { opacity: calc(var(--glow-active) * 1); }
   .theme-toggle {
     width: 40px; height: 22px; border-radius: 999px;
     background: transparent; border: 1.5px solid var(--muted);
@@ -308,6 +247,7 @@
   .pill .pill-dot { width: 6px; height: 6px; background: var(--orange); border-radius: 50%; box-shadow: 0 0 8px var(--orange); }
   .pill.with-arrow .arrow { display: inline-block; animation: bob 1.6s ease-in-out infinite; }
   @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(3px) } }
+  /* fake terminal card */
   .term-card {
     background: var(--code-bg); border: 1px solid var(--line); border-radius: 10px;
     overflow: hidden; font-family:'JetBrains Mono'; font-size: 12px;
@@ -361,6 +301,7 @@
   .stat .v { font-family:'Archivo Black'; font-size: clamp(36px, 5vw, 56px); line-height: 1; margin-top: 8px; letter-spacing: -0.03em; }
   .stat .v .u { font-size: .4em; color: var(--muted); margin-left: 4px; }
   .stat .d { font-family:'JetBrains Mono'; font-size: 10px; color: var(--orange); margin-top: 6px; }
+  /* timeline section */
   .xp-list { padding: 60px 56px 100px; position: relative; }
   @media (max-width:900px){ .xp-list { padding: 24px 16px 80px; } }
   .tl-svg {
@@ -432,6 +373,7 @@
   .xp-side .metric { font-family:'Space Grotesk'; font-weight: 700; font-size: clamp(20px, 2vw, 28px); color: var(--fg); line-height: 1.2; }
   .xp-side .metric .ar { color: var(--orange); }
   .xp-side .metric-label { display: block; font-family:'JetBrains Mono'; font-size: 9px; color: var(--muted); letter-spacing: .12em; margin-top: 6px; text-transform: uppercase; }
+  /* project cards */
   .pj-grid { padding: 24px 56px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width:900px){ .pj-grid { grid-template-columns: 1fr; padding: 16px 24px 64px; } }
   .pj {
@@ -568,19 +510,13 @@
   <div class="nav-list" id="navList"></div>
   <div class="nav-tools">
     <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
-    <button class="menu-btn" id="menuBtn" aria-label="Toggle menu" aria-expanded="false">
-      <span class="menu-bars" aria-hidden="true"><i></i><i></i><i></i></span>
-    </button>
   </div>
 </nav>
 
-<div class="circle-menu" id="circleMenu" aria-hidden="true">
-  <div class="circle-menu__items" id="circleMenuList"></div>
-</div>
 
 <div class="page">
 
-  <!-- HERO -->
+  <!-- hero / landing -->
   <section class="hero" id="intro" data-section="00" data-label="Intro">
     <div class="hero-top">
       <div class="hero-meta-grid">
@@ -596,7 +532,7 @@
         <span class="row" data-matrix="CHAWLA.">CHAWLA<span class="accent">.</span></span>
       </h1>
       <p class="hero-tag">
-        Software engineer building <span class="hl" data-hl>distributed systems &amp; agentic AI</span> across the full stack. <span class="muted">Python, TypeScript, Node.js, AWS, LangChain. Stony Brook University, B.S. Information Systems &amp; Applied Math — <span class="hl" data-hl>Magna Cum Laude</span>, GPA 3.72, May 2026.</span>
+        Software engineer building <span class="hl" data-hl>distributed systems, agentic AI pipelines, &amp; multi-agent architectures</span> across the full stack. <span class="muted">Python, TypeScript, Node.js, AWS, LangChain, PyTorch. Stony Brook University, B.S. Information Systems &amp; Applied Math — <span class="hl" data-hl>Magna Cum Laude</span>, GPA 3.72, May 2026.</span>
       </p>
     </div>
     <div class="hero-bottom">
@@ -613,8 +549,8 @@
         <div class="term-body" id="termBody">
           <div class="ln"><span class="nb">1</span><span class="code"><span class="tk-com">// software engineer · new york</span></span></div>
           <div class="ln"><span class="nb">2</span><span class="code"><span class="tk-key">const</span> <span class="tk-var">jasper</span> <span class="tk-key">=</span> {</span></div>
-          <div class="ln"><span class="nb">3</span><span class="code">  <span class="tk-var">stack</span>: [<span class="tk-str">'Python'</span>, <span class="tk-str">'Node.js'</span>, <span class="tk-str">'AWS'</span>],</span></div>
-          <div class="ln"><span class="nb">4</span><span class="code">  <span class="tk-var">focus</span>: [<span class="tk-str">'Distributed'</span>, <span class="tk-str">'AI/RAG'</span>, <span class="tk-str">'APIs'</span>],</span></div>
+          <div class="ln"><span class="nb">3</span><span class="code">  <span class="tk-var">stack</span>: [<span class="tk-str">'Python'</span>, <span class="tk-str">'TypeScript'</span>, <span class="tk-str">'AWS'</span>],</span></div>
+          <div class="ln"><span class="nb">4</span><span class="code">  <span class="tk-var">focus</span>: [<span class="tk-str">'Distributed'</span>, <span class="tk-str">'Agentic AI'</span>, <span class="tk-str">'RAG'</span>],</span></div>
           <div class="ln"><span class="nb">5</span><span class="code">  <span class="tk-var">gpa</span>: <span class="tk-num">3.72</span>,</span></div>
           <div class="ln"><span class="nb">6</span><span class="code">  <span class="tk-var">graduating</span>: <span class="tk-str">'May 2026'</span>,</span></div>
           <div class="ln"><span class="nb">7</span><span class="code">  <span class="tk-var">status</span>: <span class="tk-str">'open_to_roles'</span><span class="caret"></span></span></div>
@@ -624,7 +560,7 @@
     </div>
   </section>
 
-  <!-- BAND 1 -->
+  <!-- scrolling ticker -->
   <div class="band" aria-hidden="true">
     <div class="band-track">
       <span class="band-item">SOFTWARE ENGINEER<span class="dot"></span></span>
@@ -640,7 +576,7 @@
     </div>
   </div>
 
-  <!-- ABOUT -->
+  <!-- about me -->
   <section id="about" data-section="01" data-label="About">
     <header class="sec-head">
       <span class="sec-num">§ 01 / ABOUT</span>
@@ -650,8 +586,8 @@
     <div class="about">
       <div>
         <p class="about-lead">
-          I build <span class="lg">distributed, low-latency systems</span> and agentic AI pipelines —
-          from RESTful APIs serving millions of requests to multi-agent workflows on-chain.
+          I build <span class="lg">distributed, low-latency systems</span> and <span class="lg">agentic AI architectures</span> —
+          from RESTful APIs serving millions of requests to autonomous multi-agent pipelines orchestrating complex workflows at scale.
         </p>
         <div class="about-body">
           <p>
@@ -664,7 +600,7 @@
             Four engineering roles shipping production Python, Node.js, and TypeScript —
             <span class="hl" data-hl>geospatial APIs serving 2M+ monthly queries</span>, AWS RDS migrations of 500 GB+ databases,
             and <span class="hl" data-hl>multi-agent LangChain systems</span> processing 10K+ transactions at 94% accuracy.
-            Hands-on with CI/CD, observability, and AI-native development via Claude Code &amp; Cursor.
+            Deep experience designing agentic workflows with tool-use, chain-of-thought reasoning, and autonomous task decomposition.
           </p>
           <p style="color: var(--muted);">
             Coursework: Data Structures &amp; Algorithms · Distributed Systems · Database Systems ·
@@ -697,7 +633,7 @@
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- work experience -->
   <section id="experience" data-section="02" data-label="Experience">
     <header class="sec-head">
       <span class="sec-num">§ 02 / EXPERIENCE</span>
@@ -711,7 +647,7 @@
         <circle class="tl-comet" id="tlComet" r="5" cx="0" cy="0" style="opacity:0"></circle>
       </svg>
 
-      <!-- ROLE 1: PoliTech -->
+      <!-- politech -->
       <article class="xp-row" data-open="false">
         <div class="xp-num">01</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -735,7 +671,7 @@
         <div class="xp-toggle">+</div>
       </article>
 
-      <!-- ROLE 2: Ludhiana -->
+      <!-- ludhiana -->
       <article class="xp-row" data-open="false">
         <div class="xp-num">02</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -758,7 +694,7 @@
         <div class="xp-toggle">+</div>
       </article>
 
-      <!-- ROLE 3: UCLA / NSLC -->
+      <!-- nslc -->
       <article class="xp-row" data-open="false">
         <div class="xp-num">03</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -781,7 +717,7 @@
         <div class="xp-toggle">+</div>
       </article>
 
-      <!-- ROLE 4: Blockchain Business Lab -->
+      <!-- blockchain lab -->
       <article class="xp-row" data-open="false">
         <div class="xp-num">04</div>
         <div class="xp-dot-col"><div class="xp-dot"></div></div>
@@ -807,7 +743,7 @@
     </div>
   </section>
 
-  <!-- BAND 2 -->
+  <!-- tech ticker -->
   <div class="band" aria-hidden="true">
     <div class="band-track">
       <span class="band-item">PYTHON<span class="dot"></span></span>
@@ -826,16 +762,16 @@
     </div>
   </div>
 
-  <!-- PROJECTS — UNCHANGED (kept exactly as original) -->
+  <!-- projects -->
   <section id="projects" data-section="03" data-label="Projects">
     <header class="sec-head">
       <span class="sec-num">§ 03 / PROJECTS</span>
       <h2 class="sec-title" data-matrix="PROJECTS.">PROJECTS<span class="accent" style="color: var(--orange);">.</span></h2>
-      <p class="sec-sub">Solo full-stack builds · production-grade testing &amp; CI/CD</p>
+      <p class="sec-sub">Solo-engineered systems · agentic AI · multimodal search · distributed platforms</p>
     </header>
     <div class="pj-grid">
 
-      <!-- PROJECT 1: ContextCrash — UNCHANGED -->
+      <!-- contextcrash -->
       <article class="pj">
         <div class="pj-vis">
           <div class="term-mini">
@@ -852,20 +788,20 @@
           <span class="pj-cat">TESTING · CI/CD</span>
         </div>
         <h3 class="pj-title">ContextCrash</h3>
-        <p class="pj-tag">Application testing &amp; quality framework with deterministic validators, automated test suite, and a CI/CD gate that blocks regressions.</p>
+        <p class="pj-tag">End-to-end software quality infrastructure with deterministic validation pipelines, property-based testing, and a zero-regression CI/CD gate — designed to enforce correctness invariants across the full deployment lifecycle.</p>
         <div class="pj-meta">
-          <div>ROLE<span class="v">SOLO BUILD</span></div>
+          <div>ROLE<span class="v">SOLE ENGINEER</span></div>
           <div>STACK<span class="v">FULL SDLC</span></div>
         </div>
         <div class="pj-stack"><span>PYTHON</span><span>FASTAPI</span><span>DUCKDB</span><span>REACT</span><span>DOCKER</span><span>CI/CD</span></div>
         <ul>
-          <li>Modular Python backend with clean separation of concerns and unit tests across all components.</li>
-          <li>DuckDB analytics layer for in-process relational queries — no infra overhead.</li>
-          <li>CI/CD gate runs the full test suite on every PR; blocks merges on regression.</li>
+          <li>Engineered a modular validation framework with isolated test harnesses per service boundary, enforcing contract-level correctness across API surfaces.</li>
+          <li>DuckDB-backed analytics layer enabling sub-second in-process OLAP queries over test telemetry — zero external infrastructure dependencies.</li>
+          <li>CI/CD pipeline with automated regression gates blocking merges on invariant violations; integrated test coverage reporting and deployment rollback triggers.</li>
         </ul>
       </article>
 
-      <!-- PROJECT 2: CivicRAG — UNCHANGED (with live link) -->
+      <!-- civicrag -->
       <article class="pj">
         <div class="pj-vis">
           <div class="term-mini">
@@ -882,26 +818,88 @@
           <span class="pj-cat">AI · RAG · EVAL</span>
         </div>
         <h3 class="pj-title">CivicRAG</h3>
-        <p class="pj-tag">Hybrid RAG system over 538 US Congressional bills. BM25 + vector retrieval fused with RRF, cross-encoder reranking, streaming generation, and a continuous self-evaluation layer with loss-bucket diagnostics.</p>
+        <p class="pj-tag">Production-grade agentic RAG system over 538 US Congressional bills with hybrid retrieval, autonomous agent routing, cross-encoder reranking, SSE streaming generation, and a RAGAS-style continuous evaluation layer with loss-bucket diagnostics for systematic failure analysis.</p>
         <div class="pj-meta">
-          <div>RETRIEVAL<span class="v">HYBRID</span></div>
+          <div>RETRIEVAL<span class="v">HYBRID BM25+VEC</span></div>
           <div>EVAL<span class="v">RAGAS-STYLE</span></div>
         </div>
         <div class="pj-stack"><span>PYTHON</span><span>FASTAPI</span><span>CHROMADB</span><span>BM25</span><span>GROQ</span><span>REACT</span><span>DOCKER</span></div>
         <ul>
-          <li>Hybrid BM25 + vector retrieval fused with Reciprocal Rank Fusion — 40% quality gain over pure-vector baseline.</li>
-          <li>Cross-encoder reranker + agent routing (lookup / summarize / compare) with SSE token streaming.</li>
-          <li>Continuous eval pipeline: faithfulness, answer relevancy, context recall — loss-bucket taxonomy surfacing hallucination vs retrieval miss vs latency.</li>
+          <li>Hybrid BM25 + dense vector retrieval fused via Reciprocal Rank Fusion — 40% quality gain over pure-vector baseline measured across precision@k and MRR benchmarks.</li>
+          <li>Agentic query router with tool-use capabilities: autonomous intent classification dispatches to lookup, summarize, or comparative-analysis agents with cross-encoder reranking and SSE token streaming.</li>
+          <li>Continuous evaluation pipeline computing faithfulness, answer relevancy, and context recall — loss-bucket taxonomy systematically surfaces hallucination vs. retrieval miss vs. latency degradation for targeted optimization.</li>
         </ul>
         <a class="pj-demo-btn" href="https://civic-dvrs4kb19-jasper-s-projects7.vercel.app/" target="_blank" rel="noopener">
           ↗ LIVE DEMO
         </a>
       </article>
 
+      <!-- pixelpull -->
+      <article class="pj">
+        <div class="pj-vis">
+          <div class="term-mini">
+            <div class="ln"><span class="nb">1</span><span><span class="tk-com">// embedding_generator.py</span></span></div>
+            <div class="ln"><span class="nb">2</span><span><span class="tk-key">class</span> <span class="tk-fn">CLIPEncoder</span>:</span></div>
+            <div class="ln"><span class="nb">3</span><span>  <span class="tk-var">model</span> <span class="tk-key">=</span> <span class="tk-fn">load</span>(<span class="tk-str">"ViT-B/32"</span>)</span></div>
+            <div class="ln"><span class="nb">4</span><span>  <span class="tk-var">vec</span> <span class="tk-key">=</span> <span class="tk-fn">encode</span>(<span class="tk-var">frame</span>) <span class="tk-com"># → 512-dim</span></span></div>
+            <div class="ln"><span class="nb">5</span><span>  <span class="tk-fn">faiss_index</span>.<span class="tk-fn">add</span>(<span class="tk-var">vec</span>)</span></div>
+          </div>
+          <span class="sticker">SOLO</span>
+        </div>
+        <div class="pj-top">
+          <span class="pj-num">P / 03</span>
+          <span class="pj-cat">AI · COMPUTER VISION · SEARCH</span>
+        </div>
+        <h3 class="pj-title">PixelPull</h3>
+        <p class="pj-tag">Multimodal semantic video search engine leveraging CLIP vision-language embeddings and FAISS approximate nearest-neighbour retrieval. Encodes every keyframe into a 512-dimensional latent space, enabling sub-second natural-language queries across hours of video content with ranked similarity scoring and frame-accurate temporal seek.</p>
+        <div class="pj-meta">
+          <div>ROLE<span class="v">SOLE ENGINEER</span></div>
+          <div>PIPELINE<span class="v">CLIP → FAISS → SEEK</span></div>
+        </div>
+        <div class="pj-stack"><span>FASTAPI</span><span>PYTORCH</span><span>CLIP ViT-B/32</span><span>FAISS</span><span>FFMPEG</span><span>OPENCV</span><span>SQLITE</span><span>NEXT.JS</span><span>REACT</span><span>TYPESCRIPT</span><span>TAILWIND</span><span>SHADCN/UI</span></div>
+        <ul>
+          <li>Built an end-to-end video ingestion pipeline: FFmpeg scene-detection extracts keyframes with adaptive fallback, each frame encoded through CLIP ViT-B/32 into 512-dim vectors stored in a FAISS IndexFlatIP index with cosine similarity.</li>
+          <li>Cross-modal retrieval engine encodes natural-language queries via CLIP text encoder and performs ANN search against the frame index — returns ranked results with similarity scores, thumbnails, and frame-accurate timestamps.</li>
+          <li>Real-time processing pipeline with async backend polling, progress tracking, and automatic index updates; seek-to-timestamp player for instant temporal navigation to retrieved moments.</li>
+          <li>Full-stack architecture: FastAPI + Uvicorn serving the inference API with SQLAlchemy ORM persistence, Next.js 16 / React 19 frontend with Tailwind CSS v4 and shadcn/ui component library.</li>
+        </ul>
+      </article>
+
+      <!-- commputation -->
+      <article class="pj">
+        <div class="pj-vis">
+          <div class="term-mini">
+            <div class="ln"><span class="nb">1</span><span><span class="tk-com">// api/tasks/approve.ts</span></span></div>
+            <div class="ln"><span class="nb">2</span><span><span class="tk-key">async</span> <span class="tk-key">function</span> <span class="tk-fn">approve</span>(<span class="tk-var">task</span>) {</span></div>
+            <div class="ln"><span class="nb">3</span><span>  <span class="tk-key">await</span> <span class="tk-fn">settleReward</span>(<span class="tk-var">task</span>)</span></div>
+            <div class="ln"><span class="nb">4</span><span>  <span class="tk-key">await</span> <span class="tk-fn">updateBudget</span>(<span class="tk-var">project</span>)</span></div>
+            <div class="ln"><span class="nb">5</span><span>  <span class="tk-key">return</span> { <span class="tk-var">status</span>: <span class="tk-str">'settled'</span> }</span></div>
+          </div>
+          <span class="sticker">SOLO</span>
+        </div>
+        <div class="pj-top">
+          <span class="pj-num">P / 04</span>
+          <span class="pj-cat">FULL-STACK · WEB3 · RBAC</span>
+        </div>
+        <h3 class="pj-title">CommPutation</h3>
+        <p class="pj-tag">Full-stack contribution management platform with role-based access control, hierarchical task workflows, tokenized incentive settlement, and wallet-based authentication — designed for distributed teams, research labs, and community-driven organizations operating across organizational boundaries.</p>
+        <div class="pj-meta">
+          <div>ROLE<span class="v">SOLE ENGINEER</span></div>
+          <div>AUTH<span class="v">WALLET + RBAC</span></div>
+        </div>
+        <div class="pj-stack"><span>NEXT.JS</span><span>REACT</span><span>TYPESCRIPT</span><span>PRISMA</span><span>POSTGRESQL</span><span>TAILWIND</span><span>SHADCN/UI</span><span>WEB3AUTH</span><span>WAGMI</span><span>VIEM</span><span>SOLIDITY</span><span>DOCKER</span></div>
+        <ul>
+          <li>Architected a multi-tenant workspace system with Prisma-backed relational models spanning Users, Communities, Members, Projects, Tasks, and Token Budgets — enforcing referential integrity and role-scoped access at the query layer.</li>
+          <li>Implemented a hierarchical RBAC engine (Owner → Admin → Team Lead → Member) governing budget allocation, task lifecycle transitions, and reward approval workflows with audit-logged state machines.</li>
+          <li>Built a tokenized incentive settlement layer: task approval triggers atomic budget deduction, contributor balance credit, and project spend tracking — with Web3Auth wallet integration and on-chain contract scaffolding for future token/reputation settlement.</li>
+          <li>End-to-end task lifecycle: create → assign → start → submit → review → approve → reward — with invite-code onboarding, real-time project budget dashboards, and TanStack Query-driven optimistic UI updates.</li>
+        </ul>
+      </article>
+
     </div>
   </section>
 
-  <!-- BAND 3 -->
+  <!-- bottom ticker -->
   <div class="band" aria-hidden="true">
     <div class="band-track">
       <span class="band-item">LET'S BUILD<span class="dot"></span></span>
@@ -915,7 +913,7 @@
     </div>
   </div>
 
-  <!-- RESUME -->
+  <!-- resume -->
   <section id="resume" data-section="04" data-label="Resume">
     <header class="sec-head">
       <span class="sec-num">§ 04 / RESUME</span>
@@ -928,24 +926,22 @@
         <div class="role">SOFTWARE ENGINEER</div>
         <div class="res-stat-card">
           <div class="k">EDUCATION</div>
-          <div class="v">Stony Brook University<span class="badge">M.C.L.</span></div>
+          <div class="v">Stony Brook University</div>
           <div class="meta">B.S. Information Systems (Financial Systems)<br/>B.S. Applied Math &amp; Statistics<br/>GPA 3.72 · May 2026<br/>Minors: Finance · Real Estate &amp; Insurance</div>
         </div>
         <div class="res-stat-card">
           <div class="k">CONTACT</div>
           <div class="meta" style="margin-top: 4px;">
-            +1 (631) 676-0383<br/>
-            jasper.chawa@stonybrook.edu<br/>
+            chawlajasper@gmail.com<br/>
             New York, NY
           </div>
         </div>
-        <a class="dl-btn" href="#" onclick="alert('Hook this up to your real PDF.'); return false;">↓ DOWNLOAD PDF</a>
       </aside>
       <div>
         <div class="res-block">
           <h4>SUMMARY</h4>
           <p style="font-family:'Inter'; font-size: 15px; line-height: 1.7;">
-            Full-stack software engineer with production experience building <span class="hl" data-hl>distributed, low-latency APIs and agentic AI pipelines</span> using Python, Node.js, SQL, and AWS. Shipped end-to-end features serving millions of requests using LangChain, RAG, and LLM APIs. Hands-on with CI/CD, observability, and <span class="hl" data-hl>AI-native development workflows</span> leveraging Claude Code, Cursor, and Codex.
+            Full-stack software engineer with production experience building <span class="hl" data-hl>distributed, low-latency APIs and agentic AI systems</span> using Python, Node.js, SQL, and AWS. Designed and shipped multi-agent architectures with tool-use, autonomous task decomposition, and chain-of-thought reasoning using LangChain and LLM APIs. Built cross-modal retrieval pipelines with CLIP and FAISS, hybrid RAG systems with continuous evaluation, and <span class="hl" data-hl>distributed platforms serving millions of requests</span>.
           </p>
         </div>
         <div class="resume-cols">
@@ -1009,7 +1005,7 @@
             </div>
             <div class="skill-row">
               <div class="k">AI &amp; ML</div>
-              <div class="v">LangChain · RAG · Multi-Agent Systems · LLM APIs · OpenAI · pgvector · NLP · scikit-learn · Claude Code · Cursor</div>
+              <div class="v">LangChain · RAG · Multi-Agent Systems · LLM APIs · OpenAI · pgvector · NLP · scikit-learn · PyTorch · FAISS</div>
             </div>
             <div class="skill-row">
               <div class="k">FRONTEND</div>
@@ -1021,7 +1017,7 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- contact / lets talk -->
   <section id="contact" class="contact" data-section="05" data-label="Contact">
     <span class="sec-num" style="font-family:'JetBrains Mono'; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .15em;">§ 05 / CONTACT</span>
     <h2 class="contact-title" data-matrix="LET'S TALK." style="margin-top: 14px;">LET'S TALK<span style="color: var(--orange);">.</span></h2>
@@ -1030,9 +1026,8 @@
     </p>
     <div class="contact-row">
       <div class="contact-links">
-        <a href="mailto:jasper.chawa@stonybrook.edu">EMAIL <span class="arr">↗</span></a>
+        <a href="mailto:chawlajasper@gmail.com">EMAIL <span class="arr">↗</span></a>
         <a href="https://www.linkedin.com/in/jasper-chawla-8612a3344/" target="_blank" rel="noopener">LINKEDIN <span class="arr">↗</span></a>
-        <a href="tel:+16316760383">+1 (631) 676-0383 <span class="arr">↗</span></a>
         <a href="https://github.com/" target="_blank" rel="noopener">GITHUB <span class="arr">↗</span></a>
       </div>
       <div style="text-align: right; font-family:'JetBrains Mono'; font-size: 11px;">
@@ -1043,15 +1038,11 @@
     </div>
   </section>
 
-  <footer class="footer">
-    <div>© 2026 JASPER CHAWLA</div>
-    <div>BUILT WITH NEXT.JS · TYPESCRIPT · TAILWIND</div>
-    <div>V.2026.05</div>
-  </footer>
 
 </div>
 
 <script>
+// matrix text scramble thing 
 (function() {
   const GLYPHS = '01';
   const elements = document.querySelectorAll('[data-matrix]');
@@ -1089,6 +1080,7 @@
   });
 })();
 
+// nav bar setup and scroll spy
 (function() {
   const SECTIONS = [
     { id: 'intro', num: '00', label: 'Intro' },
@@ -1100,63 +1092,19 @@
   ];
   const list = document.getElementById('navList');
   const nav = document.getElementById('topnav');
-  const menuBtn = document.getElementById('menuBtn');
-  const circleMenu = document.getElementById('circleMenu');
-  const circleMenuList = document.getElementById('circleMenuList');
   list.innerHTML = SECTIONS.map(s => `
     <a class="nav-item" href="#${s.id}" data-target="${s.id}">
       <span class="num">${s.num}</span>
       <span class="lbl">${s.label}</span>
     </a>
   `).join('');
-  const ICONS = {
-    intro: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M3 12 12 4l9 8"/><path d="M5 10v10h14V10"/></svg>',
-    about: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>',
-    experience: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2"/></svg>',
-    projects: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m8 4 4 16M16 4l-4 16"/><path d="M3 8h18M3 16h18"/></svg>',
-    resume: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6"/></svg>',
-    contact: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>'
-  };
-  circleMenuList.innerHTML = SECTIONS.map(s => `
-    <a class="cm-orbit" href="#${s.id}" data-target="${s.id}">
-      ${ICONS[s.id] || ''}
-      <span class="cm-orbit-label">${s.label}</span>
-    </a>
-  `).join('');
-  const orbitRadius = 110;
-  const orbits = circleMenuList.querySelectorAll('.cm-orbit');
-  orbits.forEach((el, i) => {
-    const theta = (2 * Math.PI * i) / orbits.length - Math.PI / 2;
-    el.style.setProperty('--ox', Math.cos(theta) * orbitRadius + 'px');
-    el.style.setProperty('--oy', Math.sin(theta) * orbitRadius + 'px');
-  });
   list.addEventListener('click', e => {
     const a = e.target.closest('a[data-target]');
     if (!a) return;
     e.preventDefault();
     const el = document.getElementById(a.dataset.target);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (window.innerWidth < 900) { nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); }
   });
-  function setMenuOrigin() {
-    const r = menuBtn.getBoundingClientRect();
-    circleMenu.style.left = (r.left + r.width / 2) + 'px';
-    circleMenu.style.top  = (r.top  + r.height / 2) + 'px';
-  }
-  function openCircleMenu() { setMenuOrigin(); circleMenu.classList.add('is-open'); circleMenu.setAttribute('aria-hidden', 'false'); document.body.classList.add('menu-open'); menuBtn.setAttribute('aria-expanded', 'true'); }
-  function closeCircleMenu() { circleMenu.classList.remove('is-open'); circleMenu.setAttribute('aria-hidden', 'true'); document.body.classList.remove('menu-open'); menuBtn.setAttribute('aria-expanded', 'false'); }
-  menuBtn.addEventListener('click', () => { if (circleMenu.classList.contains('is-open')) closeCircleMenu(); else openCircleMenu(); });
-  circleMenuList.addEventListener('click', e => {
-    const a = e.target.closest('a[data-target]');
-    if (!a) return;
-    e.preventDefault();
-    const el = document.getElementById(a.dataset.target);
-    closeCircleMenu();
-    setTimeout(() => el && el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 380);
-  });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && circleMenu.classList.contains('is-open')) closeCircleMenu(); });
-  window.addEventListener('resize', () => { if (circleMenu.classList.contains('is-open')) setMenuOrigin(); });
-  if (window.innerWidth >= 900) { nav.classList.add('open'); menuBtn.setAttribute('aria-expanded', 'true'); }
   const observer = new IntersectionObserver(entries => {
     entries.forEach(en => {
       if (en.isIntersecting) {
@@ -1168,6 +1116,7 @@
   document.querySelectorAll('section[data-section]').forEach(s => observer.observe(s));
 })();
 
+// highlight animation on scroll into view
 (function() {
   const items = document.querySelectorAll('[data-hl]');
   const io = new IntersectionObserver(entries => {
@@ -1176,6 +1125,7 @@
   items.forEach(el => io.observe(el));
 })();
 
+// dark/light mode toggle — saves to localstorage
 (function() {
   const btn = document.getElementById('themeToggle');
   const KEY = 'jc-theme';
@@ -1188,6 +1138,7 @@
   });
 })();
 
+// expand/collapse job details on click
 (function() {
   document.querySelectorAll('.xp-row').forEach(row => {
     row.addEventListener('click', () => {
@@ -1280,6 +1231,7 @@
   window.addEventListener('scroll', update, { passive: true });
 })();
 
+// background gradient follows cursor
 (function() {
   let raf = 0, mx = window.innerWidth/2, my = window.innerHeight/2;
   document.addEventListener('mousemove', e => {
@@ -1292,6 +1244,7 @@
   });
 })();
 
+// magnetic repel on hero text letters — letters push away from cursor
 (function() {
   const heroRows = document.querySelectorAll('.hero-title [data-matrix]');
   setTimeout(() => {
@@ -1335,6 +1288,34 @@
     mx = e.clientX; my = e.clientY;
     if (!raf) raf = requestAnimationFrame(tick);
   });
+})();
+
+// glowing border effect on project cards — tracks the cursor
+(function() {
+  var cards = document.querySelectorAll('.pj');
+  var proximity = 120;
+  document.addEventListener('pointermove', function(e) {
+    cards.forEach(function(card) {
+      var rect = card.getBoundingClientRect();
+      var cx = e.clientX, cy = e.clientY;
+      // check if mouse is near the card
+      var nearX = cx > rect.left - proximity && cx < rect.right + proximity;
+      var nearY = cy > rect.top - proximity && cy < rect.bottom + proximity;
+      if (nearX && nearY) {
+        var x = (cx - rect.left) / rect.width;
+        var y = (cy - rect.top) / rect.height;
+        var centerX = rect.left + rect.width / 2;
+        var centerY = rect.top + rect.height / 2;
+        var angle = Math.atan2(cy - centerY, cx - centerX) * (180 / Math.PI) + 90;
+        card.style.setProperty('--glow-x', x.toFixed(3));
+        card.style.setProperty('--glow-y', y.toFixed(3));
+        card.style.setProperty('--glow-angle', angle.toFixed(1));
+        card.style.setProperty('--glow-active', '1');
+      } else {
+        card.style.setProperty('--glow-active', '0');
+      }
+    });
+  }, { passive: true });
 })();
 </script>
 </body>
